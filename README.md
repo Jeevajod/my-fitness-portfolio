@@ -20,5 +20,5 @@ A high-end, production-ready transformation portfolio and client intake platform
 
 1. Clone the repository:
 ```bash
-   git clone [https://github.com/YOUR_USERNAME/my-fitness-portfolio.git](https://github.com/YOUR_USERNAME/my-fitness-portfolio.git)
+   git clone [https://github.com/YOUR_USERNAME/my-fitness-portfolio.git](https://github.com/Jeevajod/my-fitness-portfolio.git)
    cd my-fitness-portfolio
