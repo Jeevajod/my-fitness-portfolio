@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import FloatingCTA from './components/FloatingCTA';
 import AdminDashboard from './components/AdminDashboard';
 import { initialTransformations, initialTestimonials } from './mockData';
+import Coach from './components/Coach';
 
 export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -39,6 +40,7 @@ export default function App() {
         <Hero />
         <Metrics />
         <Gallery transformations={transformations} />
+        <Coach /> 
         <Testimonials testimonials={testimonials} />
         <Programs />
         <Features />

@@ -8,13 +8,20 @@ export default function Navbar({ onAdminClick }) {
         <span className="text-xl font-black tracking-widest text-white">CHAMP<span className="text-gold-500">FIT</span></span>
         <ShieldAlert className="w-3 h-3 text-zinc-700 hover:text-gold-500 transition-colors" />
       </div>
+      
+      {/* Updated Menu Links with Step 3 Included */}
       <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium text-zinc-400">
         <a href="#home" className="hover:text-gold-500 transition-colors">Home</a>
         <a href="#transformations" className="hover:text-gold-500 transition-colors">Transformations</a>
+        
+        {/* Step 3: Added link to smoothly scroll down to your new Coach section */}
+        <a href="#about" className="hover:text-gold-500 transition-colors">About</a>
+        
         <a href="#testimonials" className="hover:text-gold-500 transition-colors">Testimonials</a>
         <a href="#coaching" className="hover:text-gold-500 transition-colors">Coaching</a>
         <a href="#faq" className="hover:text-gold-500 transition-colors">FAQ</a>
       </div>
+      
       <a href="#contact" className="bg-gradient-to-r from-gold-600 to-gold-500 text-black font-bold uppercase text-xs tracking-wider px-5 py-2.5 rounded hover:scale-105 transition-transform">
         Apply For Coaching
       </a>
