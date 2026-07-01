@@ -1,39 +1,63 @@
 export const initialTransformations = [
   {
     id: 1,
-    name: "Rahul Kumar",
-    category: "Fat Loss",
-    duration: "5 Months",
-    weightBefore: "92 kg",
-    weightAfter: "74 kg",
-    result: "Lost 18 kg",
-    beforeImage: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
-    afterImage: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80",
-    programType: "Elite Fat Loss Protocol"
+    name: "Santhosh",
+    category: "Body recomposition",
+    duration: "2 months",
+    weightBefore: "86 kg",
+    weightAfter: "73 kg",
+    result: "Lost 13 kg",
+    beforeImage: "/transformations/santhosh-before.jpeg",
+    afterImage: "/transformations/santhosh-after.jpeg",
+    programType: "Elite Strength Protocol"
   },
   {
     id: 2,
-    name: "Vikas Singh",
-    category: "Muscle Building",
-    duration: "6 Months",
-    weightBefore: "68 kg",
-    weightAfter: "78 kg",
-    result: "Gained 10 kg Muscle",
-    beforeImage: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80",
-    afterImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80",
-    programType: "Hypertrophy Mastery"
+    name: "Sinchana",
+    category: "Body recomposition",
+    duration: "3 Months",
+    weightBefore: "91 kg",
+    weightAfter: "75 kg",
+    result: "lost 16 kg",
+    beforeImage:"/transformations/sinchana-before.jpeg",
+    afterImage: "/transformations/sinchana-after.jpeg",
+    programType: "Elite Strength Protocol"
   },
   {
     id: 3,
-    name: "Ananya Sharma",
+    name: "Deekshitha",
     category: "Body Recomposition",
-    duration: "4 Months",
-    weightBefore: "70 kg",
-    weightAfter: "64 kg",
-    result: "Dropped 8% Body Fat",
-    beforeImage: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80",
-    afterImage: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=600&q=80",
-    programType: "Female Tone & Sculpt"
+    duration: "3 Months",
+    weightBefore: "63 kg",
+    weightAfter: "56 kg",
+    result: "Dropped down 7 kg",
+    beforeImage: "/transformations/deekshitha-before.jpeg",
+    afterImage: "/transformations/deekshitha-after.jpeg",
+    programType: "High intensity weightloss"
+  },
+   {
+    id: 4,
+    name: "Sumana",
+    category: "Body Recomposition",
+    duration: "3 Months",
+    weightBefore: "61 kg",
+    weightAfter: "54 kg",
+    result: "Dropped down 7 kg",
+    beforeImage: "/transformations/sumana-before.jpeg",
+    afterImage: "/transformations/sumana-after.jpeg",
+    programType: "High intensity weightloss"
+  },
+   {
+    id: 5,
+    name: "Arun",
+    category: "Body Recomposition",
+    duration: "3 Months",
+    weightBefore: "94 kg",
+    weightAfter: "74 kg",
+    result: "Dropped down 7 kg",
+    beforeImage:"/transformations/arun-before.jpeg",
+    afterImage: "/transformations/arun-after.jpeg",
+    programType: "Elite Strength Protocol"
   }
 ];
 

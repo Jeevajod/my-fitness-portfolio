@@ -15,13 +15,25 @@ import Coach from './components/Coach';
 
 export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  
+  // Safe Fallback initialization for Client Transformations gallery
   const [transformations, setTransformations] = useState(() => {
     const local = localStorage.getItem('coach_transformations');
-    return local ? JSON.parse(local) : initialTransformations;
+    if (local) {
+      const parsed = JSON.parse(local);
+      return parsed.length > 0 ? parsed : initialTransformations;
+    }
+    return initialTransformations;
   });
+
+  // Safe Fallback initialization for Success Testimonials
   const [testimonials, setTestimonials] = useState(() => {
     const local = localStorage.getItem('coach_testimonials');
-    return local ? JSON.parse(local) : initialTestimonials;
+    if (local) {
+      const parsed = JSON.parse(local);
+      return parsed.length > 0 ? parsed : initialTestimonials;
+    }
+    return initialTestimonials;
   });
 
   useEffect(() => {
