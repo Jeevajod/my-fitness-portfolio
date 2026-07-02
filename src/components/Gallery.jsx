@@ -19,7 +19,18 @@ export default function Gallery({ transformations }) {
 
   const handleSliderMove = (id, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    let clientX;
+    
+    // Unified Touch and Mouse tracking normalization
+    if (e.touches && e.touches[0]) {
+      clientX = e.touches[0].clientX;
+    } else if (e.clientX !== undefined) {
+      clientX = e.clientX;
+    } else {
+      return;
+    }
+
+    const x = ((clientX - rect.left) / rect.width) * 100;
     setSliderPositions(prev => ({ ...prev, [id]: Math.max(0, Math.min(100, x)) }));
   };
 
@@ -57,7 +68,7 @@ export default function Gallery({ transformations }) {
         </div>
 
         {/* Dynamic Card Display Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredData.map(item => {
               const sliderPos = sliderPositions[item.id] ?? 50;
@@ -69,40 +80,39 @@ export default function Gallery({ transformations }) {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
                   key={item.id}
-                  className="bg-obsidian-800 border border-zinc-900 overflow-hidden group hover:border-gold-500/40 transition-colors duration-300"
+                  className="bg-obsidian-800 border border-zinc-900 overflow-hidden group hover:border-gold-500/40 transition-colors duration-300 w-full"
                 >
                   {/* Slider Visual Interactive Container */}
                   <div 
-                    className="relative h-80 w-full overflow-hidden cursor-ew-resize select-none"
+                    className="relative w-full aspect-[3/4] sm:aspect-[4/5] overflow-hidden cursor-ew-resize select-none bg-zinc-950 touch-none"
                     onMouseMove={(e) => handleSliderMove(item.id, e)}
-                    onTouchMove={(e) => {
-                      if (e.touches[0]) handleSliderMove(item.id, e.touches[0]);
-                    }}
+                    onTouchMove={(e) => handleSliderMove(item.id, e)}
                   >
                     {/* After Image */}
                     <img 
                       src={item.afterImage} 
                       alt="After" 
-                      className="absolute inset-0 h-full w-full object-cover object-top"
+                      className="absolute inset-0 h-full w-full object-cover object-top pointer-events-none"
                       loading="lazy"
                     />
-                    {/* Before Image Overlaid */}
+                    
+                    {/* Before Image Overlaid — Optimized Hardware Accelerated Width Mask */}
                     <div 
-                      className="absolute inset-0 h-full w-full overflow-hidden"
-                      style={{ clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)` }}
+                      className="absolute inset-0 h-full overflow-hidden pointer-events-none will-change-[width]"
+                      style={{ width: `${sliderPos}%` }}
                     >
                       <img 
                         src={item.beforeImage} 
                         alt="Before" 
-                        className="absolute inset-0 h-full w-full object-cover object-top"
-                        style={{ width: '100%' }}
+                        className="absolute inset-0 h-full object-cover object-top pointer-events-none max-w-none"
+                        style={{ width: '100%', minWidth: '100%' }}
                         loading="lazy"
                       />
                     </div>
 
                     {/* Slider Separator Control Bar Line */}
                     <div 
-                      className="absolute top-0 bottom-0 w-0.5 bg-gold-500 pointer-events-none"
+                      className="absolute top-0 bottom-0 w-0.5 bg-gold-500 pointer-events-none遭遇 will-change-[left]"
                       style={{ left: `${sliderPos}%` }}
                     >
                       <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-gold-500 text-black p-1 rounded-full shadow-lg">
@@ -111,12 +121,15 @@ export default function Gallery({ transformations }) {
                     </div>
 
                     {/* Labels */}
-                    <span className="absolute bottom-3 left-3 bg-black/70 px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase text-white border border-white/10">BEFORE</span>
-                    <span className="absolute bottom-3 right-3 bg-gold-500 px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase text-black">AFTER</span>
+                    <span className="absolute bottom-3 left-3 bg-black/70 px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase text-white border border-white/10 z-10">BEFORE</span>
+                    <span className="absolute bottom-3 right-3 bg-gold-500 px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase text-black z-10">AFTER</span>
                     
                     <button 
-                      onClick={() => setActiveLightbox(item)}
-                      className="absolute top-3 right-3 bg-black/60 p-2 text-white opacity-0 group-hover:opacity-100 transition-opacity rounded hover:bg-gold-500 hover:text-black"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveLightbox(item);
+                      }}
+                      className="absolute top-3 right-3 bg-black/60 p-2 text-white opacity-0 group-hover:opacity-100 transition-opacity rounded hover:bg-gold-500 hover:text-black z-10"
                     >
                       <Maximize2 className="w-4 h-4" />
                     </button>
@@ -160,12 +173,12 @@ export default function Gallery({ transformations }) {
             >
               <X className="w-8 h-8" />
             </button>
-            <div className="flex flex-col md:flex-row gap-4 max-w-5xl w-full max-h-[75vh]">
-              <div className="flex-1 relative bg-zinc-900">
+            <div className="flex flex-col md:flex-row gap-4 max-w-5xl w-full max-h-[70vh] overflow-y-auto md:overflow-hidden">
+              <div className="flex-1 relative bg-zinc-900 aspect-[3/4] md:aspect-auto">
                 <img src={activeLightbox.beforeImage} alt="Before" className="w-full h-full object-contain" />
                 <span className="absolute bottom-4 left-4 bg-black/80 text-white font-bold px-3 py-1 text-xs tracking-widest border border-white/20">BEFORE PICTURE</span>
               </div>
-              <div className="flex-1 relative bg-zinc-900">
+              <div className="flex-1 relative bg-zinc-900 aspect-[3/4] md:aspect-auto">
                 <img src={activeLightbox.afterImage} alt="After" className="w-full h-full object-contain" />
                 <span className="absolute bottom-4 left-4 bg-gold-500 text-black font-bold px-3 py-1 text-xs tracking-widest">AFTER PICTURE</span>
               </div>
